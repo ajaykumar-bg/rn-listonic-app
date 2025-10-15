@@ -3,6 +3,7 @@ export interface MoreMenuItem {
   description: string;
   icon: string;
   onPress?: () => void;
+  route?: string;
 }
 
 export interface MoreMenuSection {
@@ -64,7 +65,7 @@ export const moreMenuConfig: MoreMenuSection[] = [
         title: 'Theme',
         description: 'Choose your preferred appearance',
         icon: 'palette',
-        onPress: () => console.log('Theme pressed')
+        route: '/theme'
       },
       {
         title: 'Units & Currency',
