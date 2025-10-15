@@ -1,5 +1,5 @@
 // Component exports for easier imports
-export { AddItemDialog } from './AddItemDialog';
+export { AddItemForm } from './AddItemForm';
 export { LoadingScreen } from './LoadingScreen';
 export { MoreMenuSection } from './MoreMenuSection';
 export { ShoppingListItem } from './ShoppingListItem';
