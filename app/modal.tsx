@@ -1,9 +1,9 @@
 import { router, useLocalSearchParams } from 'expo-router';
 import React, { useState } from 'react';
 import { FlatList, StyleSheet, View } from 'react-native';
-import { Appbar, FAB } from 'react-native-paper';
+import { Appbar, Button, Card, Chip, FAB, Text, TextInput } from 'react-native-paper';
 
-import { AddItemDialog, LoadingScreen, ShoppingListItem } from '@/components';
+import { LoadingScreen, ShoppingListItem } from '@/components';
 import { useShoppingList } from '@/hooks/useShoppingList';
 import { ShoppingItem } from '@/types';
 import { listUtils } from '@/utils';
@@ -12,7 +12,7 @@ export default function ListDetailScreen() {
   const { id } = useLocalSearchParams<{ id: string }>();
   const { list, categories, loadList } = useShoppingList(id as string);
   
-  const [dialogVisible, setDialogVisible] = useState(false);
+  const [showAddForm, setShowAddForm] = useState(false);
   const [newItemName, setNewItemName] = useState('');
   const [newItemQuantity, setNewItemQuantity] = useState('1');
   const [selectedCategory, setSelectedCategory] = useState('');
@@ -24,23 +24,25 @@ export default function ListDetailScreen() {
     }
   }, [categories, selectedCategory]);
 
-  const handleAddItem = async () => {
+    const handleAddItem = async () => {
     if (!list) return;
-
+    
     const success = await listUtils.addItemToList(list.id, {
       name: newItemName,
       quantity: newItemQuantity,
       categoryId: selectedCategory,
-      categories
+      categories: categories
     });
-
+    
     if (success) {
       setNewItemName('');
-      setNewItemQuantity('1');
-      setDialogVisible(false);
+      setNewItemQuantity('');
+      setSelectedCategory(categories[0]?.id || '');
+      setShowAddForm(false);
+      // Reload the list to show the new item
       loadList();
     }
-  };
+  }
 
   const handleToggleComplete = async (item: ShoppingItem) => {
     if (!list) return;
@@ -87,6 +89,57 @@ export default function ListDetailScreen() {
         <Appbar.Content title={list.name} />
       </Appbar.Header>
 
+      {showAddForm && (
+        <Card style={styles.addItemCard}>
+          <Card.Content>
+            <Text variant="titleMedium" style={styles.addItemTitle}>Add New Item</Text>
+            
+            <TextInput
+              label="Item Name"
+              value={newItemName}
+              onChangeText={setNewItemName}
+              style={styles.input}
+              autoFocus={true}
+              returnKeyType="next"
+            />
+            
+            <TextInput
+              label="Quantity"
+              value={newItemQuantity}
+              onChangeText={setNewItemQuantity}
+              keyboardType="numeric"
+              style={styles.input}
+              returnKeyType="done"
+            />
+            
+            <Text variant="bodyMedium" style={styles.categoryLabel}>
+              Category:
+            </Text>
+            <View style={styles.categoryChips}>
+              {categories.map((category) => (
+                <Chip
+                  key={category.id}
+                  selected={selectedCategory === category.id}
+                  onPress={() => setSelectedCategory(category.id)}
+                  style={styles.categoryChip}
+                >
+                  {category.name}
+                </Chip>
+              ))}
+            </View>
+            
+            <View style={styles.formActions}>
+              <Button mode="outlined" onPress={() => setShowAddForm(false)}>
+                Cancel
+              </Button>
+              <Button mode="contained" onPress={handleAddItem}>
+                Add Item
+              </Button>
+            </View>
+          </Card.Content>
+        </Card>
+      )}
+
       <FlatList
         data={[...pendingItems, ...completedItems]}
         renderItem={renderItem}
@@ -96,21 +149,8 @@ export default function ListDetailScreen() {
 
       <FAB
         style={styles.fab}
-        icon="plus"
-        onPress={() => setDialogVisible(true)}
-      />
-
-      <AddItemDialog
-        visible={dialogVisible}
-        itemName={newItemName}
-        quantity={newItemQuantity}
-        selectedCategory={selectedCategory}
-        categories={categories}
-        onDismiss={() => setDialogVisible(false)}
-        onItemNameChange={setNewItemName}
-        onQuantityChange={setNewItemQuantity}
-        onCategorySelect={setSelectedCategory}
-        onAdd={handleAddItem}
+        icon={showAddForm ? "close" : "plus"}
+        onPress={() => setShowAddForm(!showAddForm)}
       />
     </View>
   );
@@ -128,5 +168,33 @@ const styles = StyleSheet.create({
     margin: 16,
     right: 0,
     bottom: 0,
+  },
+  addItemCard: {
+    margin: 16,
+    marginBottom: 8,
+  },
+  addItemTitle: {
+    marginBottom: 16,
+  },
+  input: {
+    marginBottom: 12,
+  },
+  categoryLabel: {
+    marginTop: 8,
+    marginBottom: 8,
+  },
+  categoryChips: {
+    flexDirection: 'row',
+    flexWrap: 'wrap',
+    marginBottom: 16,
+  },
+  categoryChip: {
+    marginRight: 8,
+    marginBottom: 8,
+  },
+  formActions: {
+    flexDirection: 'row',
+    justifyContent: 'space-between',
+    marginTop: 8,
   },
 });
