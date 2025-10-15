@@ -1,50 +1,185 @@
-# Welcome to your Expo app 👋
+# Listonic - Smart Grocery Shopping List App 🛒
 
-This is an [Expo](https://expo.dev) project created with [`create-expo-app`](https://www.npmjs.com/package/create-expo-app).
+A modern, intuitive grocery shopping list app built with React Native and Expo, inspired by [Listonic](https://listonic.com/). This app helps you plan shopping, reduce food waste, and stay organized—whether you're at home or in the store.
 
-## Get started
+## ✨ Features
 
-1. Install dependencies
+### 📋 Shopping List Management
+
+- **Create Multiple Lists**: Create and manage multiple shopping lists for different stores or occasions
+- **Smart Organization**: Lists display item count and completion percentage
+- **Progress Tracking**: Visual indicators show how much of your shopping is complete
+- **Quick Actions**: Easily create, edit, and delete shopping lists
+
+### 🛍️ Item Management
+
+- **Add Items**: Add items with name, quantity, and category selection
+- **Category Organization**: Items are automatically organized by predefined grocery categories
+- **Check Off Items**: Mark items as completed while shopping
+- **Smart Sorting**: Completed items are moved to the bottom of the list
+- **Delete Items**: Remove items you no longer need
+
+### 🏷️ Category System
+
+- **Pre-defined Categories**: 10 grocery categories with intuitive icons and colors:
+  - 🍇 Fruits & Vegetables
+  - 🥛 Dairy & Eggs
+  - 🥩 Meat & Seafood
+  - 🍞 Bakery
+  - ☕ Beverages
+  - 🥫 Pantry
+  - 🧊 Frozen
+  - 🏠 Household
+  - 💄 Personal Care
+  - 🛒 Other
+- **Visual Organization**: Color-coded categories for easy identification
+- **Category Browse**: Dedicated categories screen to explore all options
+
+### 🎨 Modern UI/UX
+
+- **Material Design**: Built with React Native Paper for consistent Material Design 3
+- **Dark/Light Theme**: Automatic theme switching based on system preferences
+- **Responsive Design**: Works seamlessly on phones, tablets, and web
+- **Touch-Friendly**: Optimized for mobile interaction patterns
+- **Beautiful Animations**: Smooth transitions and micro-interactions
+
+### 💾 Data Persistence
+
+- **Local Storage**: All data is stored locally using AsyncStorage
+- **Offline First**: Works completely offline, no internet required
+- **Auto Save**: Changes are automatically saved as you make them
+- **Data Safety**: Robust error handling to prevent data loss
+
+## 🚀 Getting Started
+
+### Prerequisites
+
+- Node.js (v16 or later)
+- npm or yarn
+- Expo CLI (optional but recommended)
+
+### Installation
+
+1. Clone the repository
+
+   ```bash
+   git clone https://github.com/ajaykumar-bg/rn-listonic-app.git
+   cd rn-listonic-app
+   ```
+
+2. Install dependencies
 
    ```bash
    npm install
    ```
 
-2. Start the app
-
+3. Start the development server
    ```bash
-   npx expo start
+   npm start
    ```
 
-In the output, you'll find options to open the app in a
+### Running on Different Platforms
 
-- [development build](https://docs.expo.dev/develop/development-builds/introduction/)
-- [Android emulator](https://docs.expo.dev/workflow/android-studio-emulator/)
-- [iOS simulator](https://docs.expo.dev/workflow/ios-simulator/)
-- [Expo Go](https://expo.dev/go), a limited sandbox for trying out app development with Expo
+- **Web**: Press `w` in the terminal or visit `http://localhost:8081`
+- **iOS Simulator**: Press `i` in the terminal (requires Xcode)
+- **Android Emulator**: Press `a` in the terminal (requires Android Studio)
+- **Physical Device**: Scan QR code with Expo Go app
 
-You can start developing by editing the files inside the **app** directory. This project uses [file-based routing](https://docs.expo.dev/router/introduction).
+## 🛠️ Technical Stack
 
-## Get a fresh project
+### Core Technologies
 
-When you're ready, run:
+- **React Native** - Cross-platform mobile development
+- **Expo** - Development platform and toolchain
+- **TypeScript** - Type-safe JavaScript
+- **Expo Router** - File-based navigation system
 
-```bash
-npm run reset-project
+### UI/UX Libraries
+
+- **React Native Paper** - Material Design 3 components
+- **React Navigation** - Navigation library integration
+- **Expo Vector Icons** - Comprehensive icon library
+
+### Data Management
+
+- **AsyncStorage** - Local data persistence
+- **React Hooks** - State and lifecycle management
+
+## 📱 App Structure
+
+```
+app/
+├── _layout.tsx          # Root layout with theme providers
+├── modal.tsx            # Shopping list detail screen
+└── (tabs)/
+    ├── _layout.tsx      # Tab navigation layout
+    ├── index.tsx        # Shopping lists screen
+    ├── categories.tsx   # Categories browser
+    ├── recipes.tsx      # Recipes (coming soon)
+    └── explore.tsx      # More options and settings
+
+components/
+├── ui/                  # Reusable UI components
+└── ...                  # App-specific components
+
+services/
+├── dataService.ts       # Data management and storage
+└── ...
+
+types/
+└── index.ts             # TypeScript type definitions
 ```
 
-This command will move the starter code to the **app-example** directory and create a blank **app** directory where you can start developing.
+## 🎯 Usage Guide
 
-## Learn more
+### Creating Your First Shopping List
 
-To learn more about developing your project with Expo, look at the following resources:
+1. Open the app and tap the **+** button on the Lists tab
+2. Enter a name for your list (e.g., "Weekly Groceries")
+3. Tap "Create" to add your new list
 
-- [Expo documentation](https://docs.expo.dev/): Learn fundamentals, or go into advanced topics with our [guides](https://docs.expo.dev/guides).
-- [Learn Expo tutorial](https://docs.expo.dev/tutorial/introduction/): Follow a step-by-step tutorial where you'll create a project that runs on Android, iOS, and the web.
+### Adding Items to Your List
 
-## Join the community
+1. Tap on any shopping list to open it
+2. Tap the **+** button to add a new item
+3. Enter the item name and quantity
+4. Select the appropriate category
+5. Tap "Add" to save the item
 
-Join our community of developers creating universal apps.
+### Shopping with Your List
 
-- [Expo on GitHub](https://github.com/expo/expo): View our open source platform and contribute.
-- [Discord community](https://chat.expo.dev): Chat with Expo users and ask questions.
+1. Open your shopping list
+2. Tap the checkbox next to items as you collect them
+3. Completed items will be moved to the bottom and dimmed
+4. Your progress is automatically tracked
+
+### Managing Categories
+
+1. Visit the Categories tab to see all available categories
+2. Each category has a unique icon and color
+3. Categories help organize your shopping list by store sections
+
+## 🔮 Coming Soon
+
+- **📖 Recipe Integration**: Add ingredients from recipes to your shopping lists
+- **☁️ Cloud Sync**: Sync your lists across devices
+- **👥 Shared Lists**: Share lists with family members
+- **🤖 Smart Suggestions**: AI-powered shopping recommendations
+- **📍 Store Maps**: Navigate stores with integrated maps
+- **💰 Price Tracking**: Track prices and find deals
+
+## 🤝 Contributing
+
+We welcome contributions! Please feel free to submit a Pull Request. For major changes, please open an issue first to discuss what you would like to change.
+
+## 📄 License
+
+This project is licensed under the MIT License - see the [LICENSE](LICENSE) file for details.
+
+## 📧 Support
+
+If you have any questions or need help, please open an issue on GitHub or contact the development team.
+
+---
+
+**Built with ❤️ using React Native and Expo**
