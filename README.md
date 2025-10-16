@@ -115,7 +115,7 @@ app/
     ├── _layout.tsx      # Tab navigation layout
     ├── index.tsx        # Shopping lists screen
     ├── categories.tsx   # Categories browser
-    ├── recipes.tsx      # Recipes (coming soon)
+    ├── foodFacts.tsx    # Food Facts with nutrition info
     └── explore.tsx      # More options and settings
 
 components/
@@ -161,7 +161,7 @@ types/
 
 ## 🔮 Coming Soon
 
-- **📖 Recipe Integration**: Add ingredients from recipes to your shopping lists
+- **� Enhanced Food Search**: Expanded food database with more nutrition details
 - **☁️ Cloud Sync**: Sync your lists across devices
 - **👥 Shared Lists**: Share lists with family members
 - **🤖 Smart Suggestions**: AI-powered shopping recommendations

@@ -31,10 +31,10 @@ export default function TabLayout() {
         }}
       />
       <Tabs.Screen
-        name="recipes"
+        name="foodFacts"
         options={{
-          title: 'Recipes',
-          tabBarIcon: ({ color }) => <IconSymbol size={28} name="book" color={color} />,
+          title: 'Food Facts',
+          tabBarIcon: ({ color }) => <IconSymbol size={28} name="leaf.fill" color={color} />,
         }}
       />
       <Tabs.Screen

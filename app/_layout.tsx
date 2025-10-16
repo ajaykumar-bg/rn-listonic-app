@@ -22,6 +22,7 @@ function AppContent() {
           <Stack.Screen name="(tabs)" options={{ headerShown: false }} />
           <Stack.Screen name="modal" options={{ headerShown: false }} />
           <Stack.Screen name="theme" options={{ presentation: 'modal', title: 'Theme' }} />
+          <Stack.Screen name="food-details" options={{ headerShown: false }} />
         </Stack>
         <StatusBar style={isDark ? 'light' : 'dark'} />
       </ThemeProvider>

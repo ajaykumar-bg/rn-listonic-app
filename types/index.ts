@@ -26,20 +26,15 @@ export interface Category {
   color: string;
 }
 
-export interface Recipe {
-  id: string;
-  name: string;
-  ingredients: ShoppingItem[];
-  instructions: string[];
-  servings: number;
-  prepTime: number;
-  cookTime: number;
-  image?: string;
-}
+
 
 export type TabParamList = {
   lists: undefined;
-  recipes: undefined;
+  foodFacts: undefined;
   categories: undefined;
   settings: undefined;
 };
+
+// Re-export food facts types
+export * from './foodFacts';
+
