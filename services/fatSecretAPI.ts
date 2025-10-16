@@ -1,11 +1,11 @@
+import { ENV_CONFIG } from '@/config/env';
 import { EnhancedFoodItem, FoodDetails, HealthInfo } from '@/types/foodFacts';
 
 // FatSecret API configuration
-// eslint-disable-next-line @typescript-eslint/no-unused-vars
 const FATSECRET_CONFIG = {
   BASE_URL: 'https://platform.fatsecret.com/rest/server.api',
-  CLIENT_ID: 'your_client_id', // Replace with your actual client ID
-  CLIENT_SECRET: 'your_client_secret', // Replace with your actual client secret
+  CLIENT_ID: ENV_CONFIG.FATSECRET_CLIENT_ID,
+  CLIENT_SECRET: ENV_CONFIG.FATSECRET_CLIENT_SECRET,
 };
 
 // OAuth signature generator for FatSecret API
@@ -13,6 +13,12 @@ class FatSecretAPI {
   private generateOAuthSignature(_params: Record<string, string>, _method = 'GET'): string {
     // This is a simplified OAuth signature generation
     // In a real app, you'd want to use a proper OAuth library with crypto-js
+    
+    // Validate that API credentials are configured
+    if (!FATSECRET_CONFIG.CLIENT_ID || !FATSECRET_CONFIG.CLIENT_SECRET) {
+      console.warn('FatSecret API credentials not configured. Using mock data.');
+    }
+    
     // For demo purposes, return a mock signature
     return 'mock_signature_' + Date.now();
   }

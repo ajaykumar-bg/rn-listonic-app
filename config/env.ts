@@ -1,0 +1,22 @@
+import Constants from 'expo-constants';
+
+// Environment configuration for FatSecret API
+// This file reads from environment variables using Expo Constants
+
+const getEnvVar = (key: string, fallback: string): string => {
+  // Try to get from Expo Constants extra config
+  const value = Constants.expoConfig?.extra?.[key] || 
+                process.env[key] || 
+                fallback;
+  
+  if (value === fallback) {
+    console.warn(`Environment variable ${key} not set, using fallback value`);
+  }
+  
+  return value;
+};
+
+export const ENV_CONFIG = {
+  FATSECRET_CLIENT_ID: getEnvVar('FATSECRET_CLIENT_ID', 'your_client_id'),
+  FATSECRET_CLIENT_SECRET: getEnvVar('FATSECRET_CLIENT_SECRET', 'your_client_secret'),
+} as const;

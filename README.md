@@ -73,7 +73,30 @@ A modern, intuitive grocery shopping list app built with React Native and Expo, 
    npm install
    ```
 
-3. Start the development server
+3. Configure environment variables (optional - for Food Facts with real API data)
+
+   ```bash
+   # Copy the environment template
+   cp .env.example .env
+   ```
+
+   Then edit the `.env` file and replace with your actual FatSecret API credentials:
+
+   ```env
+   FATSECRET_CLIENT_ID=your_actual_client_id_here
+   FATSECRET_CLIENT_SECRET=your_actual_client_secret_here
+   ```
+
+   **How to get FatSecret API credentials:**
+
+   1. Sign up at [FatSecret Platform API](https://platform.fatsecret.com/)
+   2. Create a new application
+   3. Copy the Client ID and Client Secret
+   4. Add them to your `.env` file
+
+   **Note:** The app works with mock data even without API credentials!
+
+4. Start the development server
    ```bash
    npm start
    ```
