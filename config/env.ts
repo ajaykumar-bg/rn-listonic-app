@@ -5,10 +5,19 @@ import Constants from 'expo-constants';
 
 const getEnvVar = (key: string, fallback: string): string => {
   // Try to get from Expo Constants extra config
-  const value = Constants.expoConfig?.extra?.[key] || 
-                process.env[key] || 
-                fallback;
+  const extraValue = Constants.expoConfig?.extra?.[key];
   
+  // Get specific environment variables (avoiding dynamic access)
+  let processValue: string | undefined;
+  if (key === 'FATSECRET_CLIENT_ID') {
+    processValue = process.env.FATSECRET_CLIENT_ID;
+  } else if (key === 'FATSECRET_CLIENT_SECRET') {
+    processValue = process.env.FATSECRET_CLIENT_SECRET;
+  }
+  
+  const value = extraValue || processValue || fallback;
+  
+  // Only warn if falling back to placeholder values
   if (value === fallback) {
     console.warn(`Environment variable ${key} not set, using fallback value`);
   }

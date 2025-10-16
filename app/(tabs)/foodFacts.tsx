@@ -2,21 +2,31 @@ import { FoodCard } from '@/components';
 import { foodCategories } from '@/data/foodCategories';
 import { fatSecretAPI } from '@/services/fatSecretAPI';
 import { EnhancedFoodItem, FoodFactsCategory } from '@/types/foodFacts';
+// Temporary debug import
 import { router } from 'expo-router';
 import React, { useEffect, useState } from 'react';
 import { FlatList, StyleSheet, View } from 'react-native';
-import { Appbar, Chip, Searchbar, Text } from 'react-native-paper';
+import { Appbar, Banner, Chip, Searchbar, Text } from 'react-native-paper';
+import '../../debug-config';
 
 export default function FoodFactsScreen() {
   const [searchQuery, setSearchQuery] = useState('');
   const [selectedCategory, setSelectedCategory] = useState<string | null>(null);
   const [foods, setFoods] = useState<EnhancedFoodItem[]>([]);
   const [loading, setLoading] = useState(false);
+  const [apiStatus, setApiStatus] = useState<{ configured: boolean; message: string } | null>(null);
 
-  // Load initial popular foods
+  // Load initial popular foods and check API status
   useEffect(() => {
     loadInitialFoods();
+    checkAPIStatus();
   }, []);
+
+  const checkAPIStatus = () => {
+    const status = fatSecretAPI.getAPIStatus();
+    setApiStatus(status);
+    console.log('FatSecret API Status:', status.message);
+  };
 
   const loadInitialFoods = async () => {
     setLoading(true);
@@ -102,6 +112,16 @@ export default function FoodFactsScreen() {
       <Appbar.Header>
         <Appbar.Content title="Food Facts" />
       </Appbar.Header>
+
+      {apiStatus && !apiStatus.configured && (
+        <Banner
+          visible={true}
+          actions={[]}
+          icon="information-outline"
+        >
+          Using mock data. Configure FatSecret API credentials in .env file for real nutrition data.
+        </Banner>
+      )}
 
       <View style={styles.content}>
         <Searchbar
